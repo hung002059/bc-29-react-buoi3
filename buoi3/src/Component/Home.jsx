@@ -17,8 +17,9 @@ export default class Home extends Component {
 
     const idx = data.findIndex((ele) => ele.id === product.id);
 
-    if (idx !== 1) data[idx].soLuong += 1;
+    if (idx !== -1) data[idx].soLuong += 1;
     else data.push({ ...product, soLuong: 1 });
+    console.log(data);
 
     this.setState({
       cartList: data,
@@ -40,6 +41,14 @@ export default class Home extends Component {
     });
   };
 
+  deleteProduct = (id) => {
+    const data = [...this.state.cartList];
+    data.map((ele) => {
+      if (ele.id === id) data.splice(ele[id]);
+    });
+    console.log(data);
+  };
+
   renderListShoe = () => {
     return Data.map((ele) => {
       return (
@@ -47,7 +56,7 @@ export default class Home extends Component {
           <Shoe
             addToCart={this.addToCart}
             showDescript={this.showDescript}
-            phone={ele}
+            product={ele}
           />
         </div>
       );
@@ -78,6 +87,7 @@ export default class Home extends Component {
               <Cart
                 handleQuantity={this.handleQuantity}
                 cartList={this.state.cartList}
+                deleteProduct={this.deleteProduct}
               />
             </div>
           </div>

@@ -10,7 +10,7 @@ export default class Cart extends Component {
           <td>
             <img height={150} src={ele.image} />
           </td>
-          <td>{ele.price.toLocaleString()}$</td>
+          <td>{ele.price}$</td>
           <td>
             <button
               onClick={() => this.props.handleQuantity(ele, false)}
@@ -27,27 +27,47 @@ export default class Cart extends Component {
             </button>
           </td>
           <td>
-            <button className="btn btn-danger">Xóa</button>
+            <button
+              onClick={() => this.props.deleteProduct(ele.id)}
+              className="btn btn-danger"
+            >
+              Xóa
+            </button>
           </td>
+          <td>{ele.price * ele.soLuong}</td>
         </tr>
       );
     });
   };
+
+  renderTongTien = () => {
+    return this.props.cartList.map((ele) => {
+      return (
+        <div>
+          <h4 className="text-danger">Thành tiền:</h4>
+        </div>
+      );
+    });
+  };
+
   render() {
     return (
-      <table className="table table-striped table-invers w-100">
-        <thead className="thead-inverse">
-          <tr>
-            <td>Mã SP</td>
-            <th>Tên</th>
-            <th>Hình ảnh</th>
-            <th>Giá</th>
-            <th>Số lượng</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>{this.renderProduct()}</tbody>
-      </table>
+      <>
+        <table className="table table-striped table-invers w-100">
+          <thead className="thead-inverse">
+            <tr>
+              <th>Mã SP</th>
+              <th>Tên</th>
+              <th>Hình ảnh</th>
+              <th>Giá</th>
+              <th>Số lượng</th>
+              <th>Action</th>
+              <th>Thành tiền</th>
+            </tr>
+          </thead>
+          <tbody>{this.renderProduct()}</tbody>
+        </table>
+      </>
     );
   }
 }
